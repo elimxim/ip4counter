@@ -1,4 +1,4 @@
-package com.github.elimxim;
+package com.github.elimxim.ip4;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -13,7 +13,7 @@ public class IpV4InputStream implements AutoCloseable {
         this.in = in;
     }
 
-    private int[] read() throws IOException {
+    int[] read() throws IOException {
         String line;
         int idx = 0;
         int[] addresses = new int[batchSize];
@@ -21,6 +21,7 @@ public class IpV4InputStream implements AutoCloseable {
             addresses[idx++] = IpV4Support.byteArrayToInt(IpV4Support.strToByteArray(line));
         }
 
+        // last batch
         if (idx != batchSize) {
             int[] tmp = addresses;
             addresses = new int[idx];
