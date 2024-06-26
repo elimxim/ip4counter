@@ -10,7 +10,7 @@ public class Main {
         if (Files.notExists(path)) {
             throw new RuntimeException("path '" + path + "' doesn't exist");
         } else if (Files.isDirectory(path)) {
-            throw new RuntimeException("path '" + path + "' is directory");
+            throw new RuntimeException("path '" + path + "' is a directory");
         }
 
         var counter = new IPv4Counter(path);
