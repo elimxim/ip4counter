@@ -59,8 +59,4 @@ public class IpV4Support {
         result |= (long) (address[0] & 0xFF) << 24;
         return result;
     }
-
-    public static int firstOctet(int address) {
-        return (address >>> 24) & 0xFF;
-    }
 }
