@@ -19,6 +19,8 @@ The file contains ip addresses line by line as follows:
 ...
 ```
 
+[The original task](https://github.com/Ecwid/new-job/blob/master/IP-Addr-Counter.md)
+
 ## Naive approach
 
 The naive solution is to read the file line by line and use `HashSet<String>` to
