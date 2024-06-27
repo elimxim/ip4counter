@@ -3,12 +3,14 @@ package com.github.elimxim.ip4;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.concurrent.atomic.AtomicLong;
 
-import static com.github.elimxim.ip4.IpV4Support.*;
+import static com.github.elimxim.ip4.IpV4Support.parseIpAddress;
 
+/**
+ * Implements the target solution using an array of bytes.
+ */
 public class IPv4Counter {
-    private static final int ARRAY_LENGTH = 536_870_912; // 2^29
+    private static final int ARRAY_LENGTH = 536_870_912; // 2^29 for the array of bytes
 
     private final Path path;
 
@@ -17,21 +19,21 @@ public class IPv4Counter {
     }
 
     public long countUnique() throws IOException {
-        var counter = new AtomicLong();
-        var dupCounter = new AtomicLong();
+        long[] counter = new long[1];
+        long[] dupCounter = new long[1];
         byte[] array = new byte[ARRAY_LENGTH];
         try (var lines = Files.lines(path)) {
             lines.forEach(address -> {
-                int ip = byteArrayToInt(strToByteArray(address));
-                int result = array[ip >> 3] & (1 << (ip & 7));
+                int ip = parseIpAddress(address);
+                int result = array[ip >>> 3] & (1 << (ip & 7));
                 if (result == 0) {
-                    array[ip >> 3] |= (1 << (ip & 7));
+                    array[ip >>> 3] |= (1 << (ip & 7));
                 } else {
-                    dupCounter.getAndIncrement();
+                    dupCounter[0]++;
                 }
-                counter.getAndIncrement();
+                counter[0]++;
             });
         }
-        return counter.get() - dupCounter.get();
+        return counter[0] - dupCounter[0];
     }
 }

@@ -112,11 +112,23 @@ actions are required:
 If the `0` result was returned the next action is to write a 32-bit ip address _p_
 in the _array_ as follows:
 
-- `array[p >> (32 - log2(S))] |= (1 << (p & (S - 1)))`, where the operator `|=` 
+- `array[p >>> (32 - log2(S))] |= (1 << (p & (S - 1)))`, where the operator `|=` 
   applies _OR_ and writes the result in the element of the _array_
 
 To count unique ip addresses the program counts ip addresses from the file
 and duplicates and returns the difference between them.
+
+### Pros & Cons
+
+The pros of this solution are:
+- the program uses a relatively small amount of memory even when processing 
+  very large files
+- with proper micro-optimization, this seems like the fastest solution
+
+The cons of this solution are:
+- the program does not react to the amount of input data and utilizes the
+  same memory even when processing a small file
+- the solution doesn't scale to handle IPv6 addresses
 
 ## Not very good solutions
 
