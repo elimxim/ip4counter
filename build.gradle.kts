@@ -1,5 +1,5 @@
 plugins {
-    java
+    application
 }
 
 repositories {
@@ -12,9 +12,13 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params")
 }
 
+application {
+    mainClass.set("com.github.elimxim.ip4.Main")
+}
+
 tasks.test {
-    minHeapSize = "2g"
-    maxHeapSize = "4g"
+    minHeapSize = "1g"
+    maxHeapSize = "2g"
     useJUnitPlatform()
     testLogging {
         showExceptions = true

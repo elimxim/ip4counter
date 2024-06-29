@@ -1,34 +1,29 @@
 package com.github.elimxim.ip4;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Random;
 
-import static com.github.elimxim.ip4.IpV4Support.convertToByteArray;
-import static com.github.elimxim.ip4.IpV4Support.convertToString;
+import static com.github.elimxim.ip4.IPv4Support.convertToByteArray;
+import static com.github.elimxim.ip4.IPv4Support.convertToString;
 
-public class IpAddressFileGenerator {
-    public int generate(Path path, int number, int dupNumber) throws IOException {
-        if (number < dupNumber) {
-            throw new IllegalArgumentException("number < dupNumber");
-        }
+public class TestFileGenerator {
+    private final Random random = new Random();
 
-        var random = new Random();
+    public int generate(Path path, int totalNumber, int dupNumber) {
+        assert dupNumber < totalNumber;
 
-        int uniqueNumber = number - dupNumber;
-        if (number == dupNumber) {
-            uniqueNumber = 1;
-            dupNumber--;
-        }
+        int uniqueNumber = totalNumber - dupNumber;
 
         var uniqueAddresses = new HashSet<Integer>(uniqueNumber);
         while (uniqueAddresses.size() != uniqueNumber) {
             uniqueAddresses.add(random.nextInt());
         }
 
-        int[] addresses = new int[number];
+        int[] addresses = new int[totalNumber];
 
         int idx = 0;
         for (Integer uniqueAddress : uniqueAddresses) {
@@ -46,18 +41,15 @@ public class IpAddressFileGenerator {
             addresses[j] = tmp;
         }
 
-        String[] srtAddresses = new String[addresses.length];
-        for (int i = 0; i < srtAddresses.length; i++) {
-            srtAddresses[i] = convertToString(convertToByteArray(addresses[i]));
-        }
-
         try (var out = Files.newBufferedWriter(path)) {
-            for (String strAddress : srtAddresses) {
-                out.write(strAddress);
+            for (int address : addresses) {
+                out.write(convertToString(convertToByteArray(address)));
                 out.newLine();
             }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
 
-        return uniqueAddresses.size();
+        return uniqueNumber;
     }
 }

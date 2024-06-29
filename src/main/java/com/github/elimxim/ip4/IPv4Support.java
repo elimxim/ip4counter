@@ -1,6 +1,6 @@
 package com.github.elimxim.ip4;
 
-public class IpV4Support {
+public class IPv4Support {
     private static final String OCTET_SEPARATOR = ".";
     private static final String OCTET_REGEX = "\\.";
     private static final int ADDRESS_SIZE = 4;
