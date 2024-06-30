@@ -161,7 +161,7 @@ The program was tested on the following file
 
 | size   | total ip addresses | unique ip addressed | avg time |
 |--------|--------------------|---------------------|----------|
-| 106 GB | 8,000,000,000 (8B) | 1,000,000,000 (1B)  | ~20 min  |
+| 106 GB | 8,000,000,000 (8B) | 1,000,000,000 (1B)  | ~18 min  |
 
 Environment:
 - OS: `Microsoft Windows 11 Home 10.0.22631 N/A Build 22631`
@@ -196,7 +196,7 @@ Environment:
 To run the program:
 
 ```shell
-$ ip4counter <path>
+$ ./ip4counter <path>
 ```
 
 ## Not very good solutions

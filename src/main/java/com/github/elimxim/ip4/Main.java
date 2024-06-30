@@ -7,12 +7,11 @@ public class Main {
         Thread statThread = new Thread(new StatPrinter());
         statThread.start();
 
-        var result = new IPv4Counter().countUnique(Path.of(args[0]));
+        var result = new IPv4Counter().count(Path.of(args[0]));
 
         statThread.interrupt();
         statThread.join();
 
-        System.out.println();
         System.out.printf("==results==%n");
         System.out.printf("total: %d%n", result.totalNumber());
         System.out.printf("unique: %d%n", result.uniqueNumber());
