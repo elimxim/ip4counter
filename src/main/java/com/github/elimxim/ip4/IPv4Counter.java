@@ -16,7 +16,7 @@ public class IPv4Counter {
     /**
      * Bit array size = 2^26 for the long type.
      */
-    private static final int ARRAY_LENGTH = 67_108_864;
+    private static final int ARRAY_SIZE = 67_108_864;
 
     /**
      * Calculates {@link CountingResult}.
@@ -27,7 +27,7 @@ public class IPv4Counter {
         checkPath(path);
         long[] counter = new long[1];
         long[] dupCounter = new long[1];
-        long[] array = new long[ARRAY_LENGTH];
+        long[] array = new long[ARRAY_SIZE];
         try (var lines = lineStream(path)) {
             lines.forEach(address -> {
                 int ip = parseIpAddress(address);
