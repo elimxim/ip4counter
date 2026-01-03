@@ -1,7 +1,6 @@
 # IPv4 Counter
 
-The program counts the number of unique ip addresses from the input file
-according to the following requirements.
+Console program and algorithm to count the number of unique ip addresses.
 
 ---
 1. [Requirements](#requirements)
